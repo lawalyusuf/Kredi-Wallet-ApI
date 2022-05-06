@@ -77,8 +77,9 @@ send a put request to
 send a post request to
 
 ```php
-'otp' => 'required',
-'reference' => 'required',
+'account_number' => 'required',
+'bank_code' => 'required',
+'amount' => 'required',
 {{BASE_URL}}/v1/auth/deposit
 ```
 
