@@ -5,6 +5,8 @@ use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Transaction;
+use App\Http\Requests\BankChargeRequest;
 use App\Notifications\RegisterNotification;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
@@ -165,7 +167,7 @@ class AuthController extends Controller
             try {
                 $sendMail = \Mail::send('emails.otp',['user' => $user, 'code' => $code, 'expire' => $expire],function ($message) use($user){
                     $subject = "Your One Time Password";
-                    $message->to($user->email, $user->fullname);
+                    $message->to($user->email, $user->name);
                     // $message->to('bwitlawalyusuf@gmail.com', 'Lawal Yusuf');
                     $message->subject($subject);
                     $message->from('no-reply@naturesfx.com', 'Kredi Money');
@@ -199,10 +201,14 @@ class AuthController extends Controller
     }
 
 
-    public function deposit(Request $request){
-        $response = Http::withToken($this->paystack_secret)->post($this->transaction_initialize,[
-            "email" => $request->email,
+    public function deposit(BankChargeRequest $request){
+        $response = Http::withToken($this->paystack_secret)->post($this->bank_charge,[
+            "email" => auth('api')->user()->email,
             "amount" => $request->amount,
+            "bank" => [
+                "code" =>  $request->bank_code,
+                "account_number" => $request->account_number,
+            ],
         ]);
         return $response->json();
     }

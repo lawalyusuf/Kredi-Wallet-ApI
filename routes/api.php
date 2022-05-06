@@ -29,5 +29,4 @@ Route::group(['prefix' => 'v1/auth'], function () {
     Route::post('forgot', [AuthController::class, 'forgot']);
     Route::post('update', [AuthController::class, 'update']);
     Route::post('deposit', [AuthController::class, 'deposit']);
-
 });
