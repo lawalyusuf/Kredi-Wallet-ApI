@@ -198,4 +198,12 @@ class AuthController extends Controller
         ],200);
     }
 
+
+    public function deposit(Request $request){
+        $response = Http::withToken($this->paystack_secret)->post($this->transaction_initialize,[
+            "email" => $request->email,
+            "amount" => $request->amount,
+        ]);
+        return $response->json();
+    }
 }

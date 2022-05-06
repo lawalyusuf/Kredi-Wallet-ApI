@@ -45,14 +45,14 @@ email
 {{BASE_URL}}/v1/auth/forgot
 ```
 
-## Get Auth User Details
+## Refresh Token
 send a get request to
 
-use barrer toekn gotten for login as api token
+use barrer token gotten for login as api token
 
 
 ```php
-{{BASE_URL}}/api/v1/auth/refresh
+{{BASE_URL}}/v1/auth/refresh
 ```
 
 ## Get All Users Details
@@ -62,7 +62,7 @@ use barrer toekn gotten for login as api token
 
 
 ```php
-{{BASE_URL}}/api/v1/auth/user
+{{BASE_URL}}/v1/auth/user
 ```
 
 
